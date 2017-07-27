@@ -8,8 +8,12 @@
 			{{this.burger_name}}
 
 			    <form action="/{{this.id}}?_method=PUT" method="POST">
-          	  <input type="hidden" name="devoured" value="true">
-          	  <button type="submit">DEVOUR ME!</button>
+          
+            <div class="form-group">
+          	  <input type="hidden" class="form-control" name="devoured" value="true">
+            </div>
+
+            <button class="btn btn-default" type="submit">DEVOUR ME!</button>
         	</form>
       	  </li>
     	{{/unless}}
@@ -32,8 +36,8 @@
 
   <div class="form-group">
     <label for="bt">Burger Type:</label>
-    <input type="text" id="bt" name="burger_name">
+    <input type="text" class="form-control" id="bt" name="burger_name" placeholder="e.g. Veggie Burger">
   </div>
 
-  <button type="submit">Add Burger</button>
+  <button class="btn btn-default" type="submit">Add Burger</button>
 </form>
