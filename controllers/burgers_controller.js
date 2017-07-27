@@ -29,7 +29,16 @@ router.post('/', function(req, res){
 });
 
 router.put('/:id', function(req, res){
+	//Set MySQL update condition to the burger id
+	var condition = 'id = ' + req.params.id;
 
+	console.log('condition: ', condition);
+
+	burger.update({
+		devoured: req.body.devoured
+	}, condition, function(){
+		res.redirect('/');
+	});
 });
 
 // Export routes for server.js to use.
