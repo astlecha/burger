@@ -3,10 +3,13 @@ var connection = require('../config/connection.js');
 
 
 var orm = {
-	selectAll: function(tableInput) {
-	    var queryString = 'SELECT * FROM ??';
-	    connection.query(queryString, tableInput, function(err, result) {
-	      console.log(result);
+	selectAll: function(tableInput, cb) {
+	    var queryString = "SELECT * FROM " + tableInput + ";";
+	    connection.query(queryString, function(err, result) {
+	      if (err) {
+	        throw err;
+	      }
+	      cb(result);
 	    });
 	},
 	insertOne: function(tableInput, colName, vals, cb){
