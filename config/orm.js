@@ -52,7 +52,6 @@ var orm = {
 	      }
 	      cb(result);
 	    });
-	  },
 	},
 	updateOne: function(tableInput, objColVals, condition, cb) {
 	    var queryString = 'UPDATE ' + tableInput;
