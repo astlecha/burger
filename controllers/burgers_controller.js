@@ -16,5 +16,21 @@ router.get('/', function(req, res){
 	});
 });
 
+router.post('/', function(req, res){
+	//Insert multiple vals into multiple columns with arrays
+	burger.insertOne([
+		'burger_name', 'devoured'
+	], [
+	req.body.burger_name, req.body.devoured
+	], function(){
+		//Redirect to root directory
+		res.redirect('/');
+	});
+});
+
+router.put('/:id', function(req, res){
+
+});
+
 // Export routes for server.js to use.
 module.exports = router;

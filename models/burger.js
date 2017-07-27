@@ -8,8 +8,8 @@ var burger = {
 	    });
 	},
 	//Account for arrays - colName and vals
-	insertOne: function(colName, vals, cb){
-		orm.insertOne('burgers', colName, vals, function(res){
+	insertOne: function(colNames, vals, cb){
+		orm.insertOne('burgers', colNames, vals, function(res){
 			cb(res);
 		});
 	},
