@@ -43,14 +43,21 @@ var orm = {
 	      cb(result);
 	    });
 	},
-	updateOne: function(tableInput, objColVals, condition, cb){
-		var queryString = 'UPDATE ?? SET ? WHERE ??';
-		connection.query(queryString, [tableInput, objColVals, condition], function(err, result) {
-			if (err) {
+	updateOne: function(tableInput, objColVals, condition, cb) {
+	    var queryString = "UPDATE " + tableInput;
+
+	    queryString += " SET ";
+	    queryString += objToSql(objColVals);
+	    queryString += " WHERE ";
+	    queryString += condition;
+
+	    console.log(queryString);
+	    connection.query(queryString, function(err, result) {
+	      if (err) {
 	        throw err;
 	      }
 	      cb(result);
-	  	});
+	    });
 	}
 };
 
