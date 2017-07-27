@@ -1,32 +1,32 @@
 var connection = require('../config/connection.js');
 
-// // Helper function for SQL syntax.
-// function printQuestionMarks(num) {
-//   var arr = [];
+// Helper function for SQL syntax.
+function printQuestionMarks(num) {
+  var arr = [];
 
-//   for (var i = 0; i < num; i++) {
-//     arr.push("?");
-//   }
+  for (var i = 0; i < num; i++) {
+    arr.push('?');
+  }
 
-//   return arr.toString();
-// }
+  return arr.toString();
+}
 
-// // Helper function for SQL syntax.
-// function objToSql(ob) {
-//   var arr = [];
+// Helper function for SQL syntax.
+function objToSql(ob) {
+  var arr = [];
 
-//   for (var key in ob) {
-//     if (Object.hasOwnProperty.call(ob, key)) {
-//       arr.push(key + "=" + ob[key]);
-//     }
-//   }
+  for (var key in ob) {
+    if (Object.hasOwnProperty.call(ob, key)) {
+      arr.push(key + '=' + ob[key]);
+    }
+  }
 
-//   return arr.toString();
-// }
+  return arr.toString();
+}
 
 var orm = {
 	selectAll: function(tableInput, cb) {
-	    var queryString = "SELECT * FROM " + tableInput + ";";
+	    var queryString = 'SELECT * FROM ' + tableInput + ';';
 	    connection.query(queryString, function(err, result) {
 	      if (err) {
 	        throw err;
@@ -34,21 +34,32 @@ var orm = {
 	      cb(result);
 	    });
 	},
-	insertOne: function(tableInput, colNames, vals, cb){
-		var queryString = 'INSERT INTO ?? (??) VALUES (?)';
-	    connection.query(queryString, [tableInput, colNames, vals], function(err, result) {
+	insertOne: function(tableInput, colNames, vals, cb) {
+	    var queryString = 'INSERT INTO ' + tableInput;
+
+	    queryString += ' (';
+	    queryString += colNames.toString();
+	    queryString += ') ';
+	    queryString += 'VALUES (';
+	    queryString += printQuestionMarks(vals.length);
+	    queryString += ') ';
+
+	    console.log('queryString: ', queryString);
+
+	    connection.query(queryString, vals, function(err, result) {
 	      if (err) {
 	        throw err;
 	      }
 	      cb(result);
 	    });
+	  },
 	},
 	updateOne: function(tableInput, objColVals, condition, cb) {
-	    var queryString = "UPDATE " + tableInput;
+	    var queryString = 'UPDATE ' + tableInput;
 
-	    queryString += " SET ";
+	    queryString += ' SET ';
 	    queryString += objToSql(objColVals);
-	    queryString += " WHERE ";
+	    queryString += ' WHERE ';
 	    queryString += condition;
 
 	    console.log(queryString);
